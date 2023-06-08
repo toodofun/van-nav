@@ -5,8 +5,8 @@ import GithubLink from "./components/GithubLink";
 function App() {
   return (
     <div className="App">
-      <DarkSwitch />
-      <GithubLink />
+      {/* <DarkSwitch /> */}
+      {/* <GithubLink /> */}
       <div className="main">
         <Content />
       </div>

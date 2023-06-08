@@ -30,7 +30,7 @@ const DarkSwitch = () => {
       current.hasInit = true;
       if (!!!localStorage.getItem("theme")) {
         // 第一次用默认的
-        setTheme("auto");
+        setTheme("dark");
       } else {
         const iTheme = initTheme();
         setTheme(iTheme);
