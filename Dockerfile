@@ -2,9 +2,9 @@ FROM node:14-alpine AS feBuilder
 WORKDIR /app
 # RUN apk add --no-cache g++ gcc make python3
 COPY . .
-RUN yarn config set registry https://registry.npmmirror.com/ && yarn config set -g sass_binary_site https://cdn.npmmirror.com/binaries/node-sass
-RUN cd /app && cd ui/admin && yarn --debug && yarn --debug build && cd ../..
-RUN cd ui/website && yarn --debug && yarn --debug build && cd ../..
+RUN yarn config set -g registry http://mirrors.cloud.tencent.com/npm/ && yarn config set -g sass_binary_site http://mirrors.cloud.tencent.com/npm/node-sass/
+RUN cd /app && cd ui/admin && yarn && yarn build && cd ../..
+RUN cd ui/website && yarn && yarn build && cd ../..
 RUN cd /app && mkdir -p public/admin
 RUN cp -r ui/website/build/* public/
 RUN cp -r ui/admin/dist/* public/admin/
