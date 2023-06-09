@@ -1,4 +1,4 @@
-FROM node:14-alpine AS feBuilder
+FROM --platform=${BUILDPLATFORM} node:14-alpine AS feBuilder
 WORKDIR /app
 # RUN apk add --no-cache g++ gcc make python3
 COPY . .
@@ -15,7 +15,7 @@ RUN apk --no-cache --no-progress add  git
 WORKDIR /app
 COPY . .
 COPY --from=feBuilder /app/public /app/public
-RUN cd /app && ls -la && go mod tidy && go build .
+RUN go env -w GOPROXY=https://goproxy.cn,direct && cd /app && ls -la && go mod tidy && go build .
 
 
 
