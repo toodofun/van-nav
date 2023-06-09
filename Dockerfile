@@ -1,4 +1,4 @@
-FROM --platform=${BUILDPLATFORM} node:14-alpine AS feBuilder
+FROM --platform=${BUILDPLATFORM} registry.cn-hangzhou.aliyuncs.com/toodo/images:node-14-alpine AS feBuilder
 WORKDIR /app
 # RUN apk add --no-cache g++ gcc make python3
 COPY . .
@@ -10,12 +10,12 @@ RUN cp -r ui/admin/dist/* public/admin/
 RUN sed -i 's/\/assets/\/admin\/assets/g' public/admin/index.html
 
 
-FROM golang:alpine AS binarybuilder
+FROM --platform=${BUILDPLATFORM} registry.cn-hangzhou.aliyuncs.com/toodo/images:golang-alpine AS binarybuilder
 RUN apk --no-cache --no-progress add  git
 WORKDIR /app
 COPY . .
 COPY --from=feBuilder /app/public /app/public
-RUN go env -w GOPROXY=https://goproxy.cn,direct && cd /app && ls -la && go mod tidy && go build .
+RUN go env -w GOPROXY=https://goproxy.cn,direct && cd /app && ls -la && go mod tidy && GOARCH=${TARGETARCH} GOOS=${TARGETOS} go build .
 
 
 
