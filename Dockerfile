@@ -1,4 +1,4 @@
-FROM registry.cn-hangzhou.aliyuncs.com/toodo/images:node-14-alpine AS feBuilder
+FROM node:14-alpine AS feBuilder
 WORKDIR /app
 # RUN apk add --no-cache g++ gcc make python3
 COPY . .
