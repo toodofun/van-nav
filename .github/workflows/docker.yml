@@ -3,7 +3,7 @@ name: DockerBuild And Deploy
 on:
   push:
     tags:
-      - 'v*'
+      - 'master*'
 
 jobs:
 
